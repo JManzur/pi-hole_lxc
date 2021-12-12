@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  pihole:
+    container_name: PIHOLE
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "8180:80/tcp"
+      - "6443:443/tcp"
+    environment:
+      TZ: 'America/Argentina/Buenos_Aires'
+      WEBPASSWORD:
+    volumes:
+      - /opt/pi-hole/etc-pihole/:/etc/pihole/
+      - /opt/pi-hole/etc-dnsmasq.d/:/etc/dnsmasq.d/
+    dns:
+      - 8.8.8.8
+      - 9.9.9.9
+      - 1.1.1.1
+    cap_add:
+      - NET_ADMIN
+    restart: always
